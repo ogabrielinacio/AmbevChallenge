@@ -5,6 +5,7 @@ using Ambev.DeveloperEvaluation.Common.Security;
 using Ambev.DeveloperEvaluation.Common.Validation;
 using Ambev.DeveloperEvaluation.IoC;
 using Ambev.DeveloperEvaluation.ORM;
+using Ambev.DeveloperEvaluation.ORM.Context;
 using Ambev.DeveloperEvaluation.WebApi.Middleware;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -29,12 +30,12 @@ public class Program
             builder.AddBasicHealthChecks();
             builder.Services.AddSwaggerGen();
 
-            builder.Services.AddDbContext<DefaultContext>(options =>
-                options.UseNpgsql(
-                    builder.Configuration.GetConnectionString("DefaultConnection"),
-                    b => b.MigrationsAssembly("Ambev.DeveloperEvaluation.ORM")
-                )
-            );
+            // builder.Services.AddDbContext<DefaultContext>(options =>
+            //     options.UseNpgsql(
+            //         builder.Configuration.GetConnectionString("DefaultConnection"),
+            //         b => b.MigrationsAssembly("Ambev.DeveloperEvaluation.ORM")
+            //     )
+            // );
 
             builder.Services.AddJwtAuthentication(builder.Configuration);
 
