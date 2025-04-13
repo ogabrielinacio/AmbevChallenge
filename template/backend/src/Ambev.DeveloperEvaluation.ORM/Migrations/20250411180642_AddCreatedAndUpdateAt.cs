@@ -12,46 +12,46 @@ namespace Ambev.DeveloperEvaluation.ORM.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<DateTime>(
-                name: "CreatedDate",
+                name: "CreatedAt",
                 table: "Users",
                 type: "timestamp with time zone",
                 nullable: false,
                 defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
 
             migrationBuilder.AddColumn<DateTime>(
-                name: "UpdatedDate",
+                name: "UpdatedAt",
                 table: "Users",
                 type: "timestamp with time zone",
                 nullable: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Users_CreatedDate",
+                name: "IX_Users_CreatedAt",
                 table: "Users",
-                column: "CreatedDate");
+                column: "CreatedAt");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Users_UpdatedDate",
+                name: "IX_Users_UpdatedAt",
                 table: "Users",
-                column: "UpdatedDate");
+                column: "UpdatedAt");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropIndex(
-                name: "IX_Users_CreatedDate",
+                name: "IX_Users_CreatedAt",
                 table: "Users");
 
             migrationBuilder.DropIndex(
-                name: "IX_Users_UpdatedDate",
+                name: "IX_Users_UpdatedAt",
                 table: "Users");
 
             migrationBuilder.DropColumn(
-                name: "CreatedDate",
+                name: "CreatedAt",
                 table: "Users");
 
             migrationBuilder.DropColumn(
-                name: "UpdatedDate",
+                name: "UpdatedAt",
                 table: "Users");
         }
     }

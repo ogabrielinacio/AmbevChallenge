@@ -6,16 +6,16 @@ public class BaseEntity : IComparable<BaseEntity>
 {
     public Guid Id { get; set; }
     
-    public DateTime Created { get; private set; }
-    public DateTime? Updated { get; private set; }
+    public DateTime CreatedAt { get; private set; }
+    public DateTime? UpdatedAt { get; private set; }
 
     protected BaseEntity()
     {
-        Created = DateTime.UtcNow;
-        Updated = DateTime.UtcNow;
+        CreatedAt = DateTime.UtcNow;
+        UpdatedAt = DateTime.UtcNow;
     }
 
-    public void Modify() => Updated = DateTime.UtcNow;
+    public void Modify() => UpdatedAt = DateTime.UtcNow;
 
     public Task<IEnumerable<ValidationErrorDetail>> ValidateAsync()
     {

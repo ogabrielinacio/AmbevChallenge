@@ -13,10 +13,10 @@ public static class AuditableEntityConfiguration
             builder.HasKey(e => e.Id);
 
         builder.Property(e => e.Id).HasColumnName("Id").HasColumnType("uuid").HasDefaultValueSql("gen_random_uuid()");
-        builder.Property(e => e.Created).HasColumnName("CreatedDate").IsRequired();
-        builder.Property(e => e.Updated).HasColumnName("UpdatedDate");
+        builder.Property(e => e.CreatedAt).HasColumnName("CreatedAt").IsRequired();
+        builder.Property(e => e.UpdatedAt).HasColumnName("UpdatedAt");
 
-        builder.HasIndex(p => p.Created).IsUnique(false);
-        builder.HasIndex(p => p.Updated).IsUnique(false);
+        builder.HasIndex(p => p.CreatedAt).IsUnique(false);
+        builder.HasIndex(p => p.UpdatedAt).IsUnique(false);
     }
 }

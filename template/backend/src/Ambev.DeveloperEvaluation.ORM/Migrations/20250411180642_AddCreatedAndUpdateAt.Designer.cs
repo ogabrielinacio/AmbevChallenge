@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Ambev.DeveloperEvaluation.ORM.Migrations
 {
     [DbContext(typeof(DefaultContext))]
-    [Migration("20250411180642_AddCreatedAndUpdateAt")]
+    [Migration("20250411180642_AddCreatedAtAndUpdateAt")]
     partial class AddCreatedAndUpdateAt
     {
         /// <inheritdoc />
@@ -33,9 +33,9 @@ namespace Ambev.DeveloperEvaluation.ORM.Migrations
                         .HasColumnName("Id")
                         .HasDefaultValueSql("gen_random_uuid()");
 
-                    b.Property<DateTime>("Created")
+                    b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone")
-                        .HasColumnName("CreatedDate");
+                        .HasColumnName("CreatedAtDate");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -62,9 +62,9 @@ namespace Ambev.DeveloperEvaluation.ORM.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("character varying(20)");
 
-                    b.Property<DateTime?>("Updated")
+                    b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("timestamp with time zone")
-                        .HasColumnName("UpdatedDate");
+                        .HasColumnName("UpdatedAtDate");
 
                     b.Property<string>("Username")
                         .IsRequired()
@@ -73,9 +73,9 @@ namespace Ambev.DeveloperEvaluation.ORM.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Created");
+                    b.HasIndex("CreatedAt");
 
-                    b.HasIndex("Updated");
+                    b.HasIndex("UpdatedAt");
 
                     b.ToTable("Users", (string)null);
                 });
