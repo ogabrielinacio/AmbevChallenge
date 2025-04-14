@@ -6,10 +6,11 @@ public class CartItem
     public int Quantity { get; private set; }
 
 
-    public CartItem(Guid productId, int qty)
+    protected CartItem() {}
+    public CartItem(Guid productId, int quantity)
     {
         ProductId = productId;
-        Quantity = qty;
+        Quantity = quantity;
     } 
     
     public void SetQuantity(int quantity)

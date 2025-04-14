@@ -11,12 +11,12 @@ public class SaleItem
     
     public decimal TotalWithDiscount => TotalWithoutDiscount - DiscountAmount;
 
-
-    public SaleItem(Guid productId, int qty, decimal price, decimal discount)
+    protected SaleItem() {} 
+    public SaleItem(Guid productId, int quantity, decimal unitPrice, decimal discount)
     {
         ProductId = productId;
-        Quantity = qty;
-        UnitPrice = price;
+        Quantity = quantity;
+        UnitPrice = unitPrice;
         Discount = discount;
     }
 

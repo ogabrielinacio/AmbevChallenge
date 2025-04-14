@@ -1,9 +1,8 @@
 ﻿using Ambev.DeveloperEvaluation.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Ambev.DeveloperEvaluation.ORM.Context.Configurations;
 
-namespace Ambev.DeveloperEvaluation.ORM.Mapping;
+namespace Ambev.DeveloperEvaluation.ORM.Context.Configurations;
 
 public class UserConfiguration : IEntityTypeConfiguration<User>
 {

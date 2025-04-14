@@ -13,6 +13,13 @@ public class Cart : BaseEntity, IAggregateRoot
     private readonly List<CartItem> _items = new();
     
     public IReadOnlyCollection<CartItem> Items => _items;
+
+    protected Cart(){}
+    
+    public Cart(Guid customerId)
+    {
+       CustomerId = customerId; 
+    }
     
     public ValidationResultDetail Validate()
     {
