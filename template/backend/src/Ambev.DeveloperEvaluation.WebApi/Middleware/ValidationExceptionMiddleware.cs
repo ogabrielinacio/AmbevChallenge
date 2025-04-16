@@ -2,6 +2,7 @@
 using Ambev.DeveloperEvaluation.WebApi.Common;
 using FluentValidation;
 using System.Text.Json;
+using Ambev.DeveloperEvaluation.Domain.Exceptions;
 
 namespace Ambev.DeveloperEvaluation.WebApi.Middleware
 {
@@ -24,7 +25,27 @@ namespace Ambev.DeveloperEvaluation.WebApi.Middleware
             {
                 await HandleValidationExceptionAsync(context, ex);
             }
+            catch (DomainException ex)
+            {
+                await HandleDomainExceptionAsync(context, ex, GetStatusCodeForDomainException(ex));
+            }
+            catch (Exception ex)
+            {
+                await HandleDomainExceptionAsync(context, ex, StatusCodes.Status500InternalServerError);
+            }
         }
+        
+        private static int GetStatusCodeForDomainException(DomainException ex)
+        {
+            return ex switch
+            {
+                DomainNotFoundException => StatusCodes.Status404NotFound,
+                DomainForbiddenAccessException => StatusCodes.Status403Forbidden,
+                DomainRuleViolationException => StatusCodes.Status409Conflict,
+                _ => StatusCodes.Status400BadRequest
+            };
+        }
+
 
         private static Task HandleValidationExceptionAsync(HttpContext context, ValidationException exception)
         {
@@ -46,5 +67,25 @@ namespace Ambev.DeveloperEvaluation.WebApi.Middleware
 
             return context.Response.WriteAsync(JsonSerializer.Serialize(response, jsonOptions));
         }
+        
+        private static Task HandleDomainExceptionAsync(HttpContext context, Exception exception, int statusCode)
+    {
+        context.Response.ContentType = "application/json";
+        context.Response.StatusCode = statusCode;
+
+        var response = new
+        {
+            Success = false,
+            Message = exception.Message
+        };
+
+        var jsonOptions = new JsonSerializerOptions
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+        };
+
+        return context.Response.WriteAsync(JsonSerializer.Serialize(response, jsonOptions));
+    }
+        
     }
 }

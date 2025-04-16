@@ -11,12 +11,12 @@ public class Address
 
     protected Address() { }
 
-    public Address(string street, string city, string state, string country, string zip)
+    public Address(string street, string city, string state, string country, string zipCode)
     {
         Street = street;
         City = city;
         State = state;
         Country = country;
-        ZipCode = zip;
+        ZipCode = zipCode;
     } 
 }

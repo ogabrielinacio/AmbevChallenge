@@ -27,8 +27,5 @@ public class ProductValidator : AbstractValidator<Product>
 
         RuleFor(x => x.Image)
             .NotEmpty().WithMessage("Image is required.");
-
-        RuleFor(x => x.Rating)
-            .NotNull().WithMessage("Rating must be provided.");
     }
 }

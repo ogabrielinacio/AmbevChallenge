@@ -18,7 +18,7 @@ public class Product : BaseEntity
 
     protected Product() { }
     
-    public Product(Guid branchId,string title, decimal price, string description, string category, string image, Rating rating)
+    public Product(Guid branchId,string title, decimal price, string description, string category, string image)
     {
         BranchId = branchId;
         UpdateTitle(title);
@@ -26,7 +26,7 @@ public class Product : BaseEntity
         UpdateDescription(description);
         UpdateCategory(category);
         UpdateImage(image);
-        UpdateRating(rating);
+        Rating = Rating.Empty();
     }
     
     public ValidationResultDetail Validate()

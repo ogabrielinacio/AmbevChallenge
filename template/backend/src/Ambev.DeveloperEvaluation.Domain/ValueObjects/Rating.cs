@@ -9,5 +9,7 @@ public class Rating
     {
         Rate = rate;
         Count = count;
-    } 
+    }
+    
+    public static Rating Empty() => new(0, 0);
 }

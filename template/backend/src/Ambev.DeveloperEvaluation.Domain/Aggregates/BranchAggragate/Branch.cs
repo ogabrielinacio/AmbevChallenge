@@ -1,9 +1,11 @@
 using Ambev.DeveloperEvaluation.Common.Validation;
 using Ambev.DeveloperEvaluation.Domain.Common;
 using Ambev.DeveloperEvaluation.Domain.Entities;
+using Ambev.DeveloperEvaluation.Domain.Enums;
 using Ambev.DeveloperEvaluation.Domain.Exceptions;
 using Ambev.DeveloperEvaluation.Domain.Validation;
 using Ambev.DeveloperEvaluation.Domain.ValueObjects;
+using Microsoft.AspNetCore.Identity;
 
 namespace Ambev.DeveloperEvaluation.Domain.Aggregates.BranchAggragate;
 
@@ -41,9 +43,9 @@ public class Branch : BaseEntity, IAggregateRoot
         };
     }
 
-    public Product AddProduct(string title, decimal price, string description, string category, string image, Rating rating)
+    public Product AddProduct(string title, decimal price, string description, string category, string image)
     {
-        var product = new Product(Id, title, price, description, category, image, rating);
+        var product = new Product(Id, title, price, description, category, image);
     
         var validation = product.Validate();
         if (!validation.IsValid)
@@ -107,5 +109,27 @@ public class Branch : BaseEntity, IAggregateRoot
     {
         Address = address ?? throw new DomainRuleViolationException("Address cannot be empty");
     }
+    
+    public bool HasPermission(Guid userId)
+    {
+        if (IsOwner(userId))
+            return true;
+
+        if(IsManager(userId))
+            return true;
+        return false;
+    }
+
+    public bool IsOwner(Guid userId)
+    {
+        return OwnerId == userId;
+    }
+
+    public bool IsManager(Guid userId)
+    {
+        return _users.Any(u => u.UserId == userId && u.Role == UserRole.Manager);
+    }
+
+    
     
 }

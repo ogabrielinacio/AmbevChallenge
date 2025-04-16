@@ -48,12 +48,14 @@ public class InfrastructureModuleInitializer : IModuleInitializer
         ); 
         
         builder.Services.AddScoped<DefaultContext>();
+        builder.Services.AddScoped<IUnitOfWork>(provider => provider.GetRequiredService<DefaultContext>());
+
         builder.Services.AddScoped<MongoContext>();
         builder.Services.AddScoped<DbContext>(provider => provider.GetRequiredService<MongoContext>());
             
         builder.Services.AddScoped<IUserRepository, UserRepository>();
         builder.Services.AddScoped<IBranchRepository, BranchRepository>();
-        builder.Services.AddScoped<IProductReadRepository, ProductReadRepository>();
+        builder.Services.AddScoped<IConsumerProductRepository, ConsumerProductRepository>();
         
         builder.Services.AddScoped<ISaleRepository, SaleRepository>();
         builder.Services.AddScoped<ICartRepository, CartRepository>();
